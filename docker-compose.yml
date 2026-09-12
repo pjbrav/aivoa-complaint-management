@@ -1,0 +1,21 @@
+version: "3.8"
+
+# Optional convenience file: spins up Postgres only. The backend and
+# frontend are run natively (uvicorn / npm run dev) per the README so
+# they're easy to debug and hot-reload during development/demo.
+services:
+  postgres:
+    image: postgres:16
+    container_name: aivoa_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: aivoa_complaints
+    ports:
+      - "5432:5432"
+    volumes:
+      - aivoa_pg_data:/var/lib/postgresql/data
+
+volumes:
+  aivoa_pg_data:
